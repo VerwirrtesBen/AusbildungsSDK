@@ -1,12 +1,38 @@
 // test code
 import { AngebotObjekt } from "./AngebotObjekt.js";
 import { ClientService } from "./ClientService.js";
+import { sClientService } from "./sClientService.js";
 import { AngebotResponse } from "./AngebotResponse.js";
 export class AngeboteProvider {
     api;
+    sapi;
     constructor() {
         this.api = new ClientService();
+        this.sapi = new sClientService();
     }
+    /*public async getsAngebote({
+        sw, sfa, sfe, orte, pg, uk, re, sfo, st, smo, abg, hsa, san, ffst
+    }:{
+        sw?: string,
+        sfa?: number,
+        sfe?: string,
+        orte?:string,
+        pg?:number,
+        uk?: string,
+        re?: string,
+        sfo?: number,
+        st: number,
+        smo: number,
+        abg: number,
+        hsa:number,
+        san:number,
+        ffst: number}
+    ){
+        var sAngebotsliste:
+    }
+
+    )
+    */
     async getAngebote({ re, page, sty, ids, orte, size, uk, bart, ityp, bt, ban, bg } = {}) {
         var AngebotListe = [];
         var daten = await this.api.fetchData(re, // string
@@ -43,25 +69,18 @@ export class AngeboteProvider {
             let E_mail = Termin.angebot.bildungsanbieter.email;
             let Zugang = Termin.angebot.zugang;
             let Zielgruppe = Termin.angebot.zielgruppe;
-            let Teilnehmerzahl = String(Termin.teilnehmerMin) + " bis " + String(Termin.teilnehmerMax);
+            let Teilnehmerzahl = Termin.teilnehmerMin ? String(Termin.teilnehmerMin) + " bis " + String(Termin.teilnehmerMax) : null;
             let AuchGeeignetFuer = Termin.angebot.behinderungen;
-            let ausbildungPlz = Termin.adresse.ortStrasse.plz;
-            let ausbildungStrasse = Termin.adresse.strasse;
-            let ausbildungOrt = Termin.adresse.ortStrasse.name;
-            let ausbildungLaengengrad = Termin.adresse.ortStrasse.laengengrad;
-            let ausbildungBreitengrad = Termin.adresse.ortStrasse.breitengrad;
-            let Dienstleistungen = Termin.adresse.dienstleistungen;
-            let HinweiseZurAdresse = Termin.adresse.hinweise;
-            // Kontaktperson?
-            let KontaktpersonName = "";
-            let KontaktpersonFunktion = "";
-            let KontaktpersonTelefon = "";
-            let KontaktpersonEmail = "";
-            //
+            let ausbildungPlz = Termin?.adresse?.ortStrasse?.plz;
+            let ausbildungStrasse = Termin.adresse?.strasse;
+            let ausbildungOrt = Termin.adresse?.ortStrasse?.name;
+            let ausbildungLaengengrad = Termin.adresse?.ortStrasse?.laengengrad;
+            let ausbildungBreitengrad = Termin.adresse?.ortStrasse?.breitengrad;
+            let Dienstleistungen = Termin.adresse?.dienstleistungen;
+            let HinweiseZurAdresse = Termin.adresse?.hinweise;
             let logo = Termin.angebot?.bildungsanbieter?.logo?.url ?? null;
-            "";
             // erstellung des Angebot objektes
-            let A = new AngebotObjekt(id, ausbildungsinhalte, link, beginn, ende, individuellerEinstieg, bildungsart, unterrichtsform, abschlussart, abschlussbezeichnung, zusatzqualifizierung, pruefendeStelle, schulart, ZulassungZurFoerderungPerBildungsgutschein, foerderung, bildungsanbieterBezeichnung, Plz, Strasse, Ort, Telefonnummer, mobilTelefon, internet, E_mail, Zugang, Zielgruppe, Teilnehmerzahl, AuchGeeignetFuer, ausbildungPlz, ausbildungStrasse, ausbildungOrt, ausbildungLaengengrad, ausbildungBreitengrad, Dienstleistungen, HinweiseZurAdresse, KontaktpersonName, KontaktpersonFunktion, KontaktpersonTelefon, KontaktpersonEmail, logo);
+            let A = new AngebotObjekt(id, ausbildungsinhalte, link, beginn, ende, individuellerEinstieg, bildungsart, unterrichtsform, abschlussart, abschlussbezeichnung, zusatzqualifizierung, pruefendeStelle, schulart, ZulassungZurFoerderungPerBildungsgutschein, foerderung, bildungsanbieterBezeichnung, Plz, Strasse, Ort, Telefonnummer, mobilTelefon, internet, E_mail, Zugang, Zielgruppe, Teilnehmerzahl, AuchGeeignetFuer, ausbildungPlz, ausbildungStrasse, ausbildungOrt, ausbildungLaengengrad, ausbildungBreitengrad, Dienstleistungen, HinweiseZurAdresse, logo);
             AngebotListe.push(A);
         }
         const AR = new AngebotResponse(AngebotListe, daten.data.page, daten.status);

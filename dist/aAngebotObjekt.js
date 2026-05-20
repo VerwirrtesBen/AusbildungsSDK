@@ -182,4 +182,4 @@ export class AngebotObjekt {
         return this.ausbildungBreitengrad;
     }
 }
-//# sourceMappingURL=AngebotObjekt.js.map
+//# sourceMappingURL=aAngebotObjekt.js.map

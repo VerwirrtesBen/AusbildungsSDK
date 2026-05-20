@@ -1,7 +1,9 @@
 import { ClientService } from "./ClientService.js";
+import { sClientService } from "./sClientService.js";
 import { AngebotResponse } from "./AngebotResponse.js";
 export declare class AngeboteProvider {
     protected api: ClientService;
+    protected sapi: sClientService;
     constructor();
     getAngebote({ re, page, sty, ids, orte, size, uk, bart, ityp, bt, ban, bg }?: {
         re?: string;

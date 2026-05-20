@@ -1,13 +1,100 @@
 // test code
 import {AngebotObjekt} from "./AngebotObjekt.js"
 import {ClientService} from "./ClientService.js"
+import {sClientService} from "./sClientService.js"
 import {AngebotResponse} from "./AngebotResponse.js"
+import {sAngebotObjekt} from "./sAngebotObjekt.js"
+
+
 
 export class AngeboteProvider{
     protected api:ClientService;
+    protected sapi:sClientService;
     constructor(){
         this.api = new ClientService();
+        this.sapi = new sClientService();
+    }public async getsAngebote({
+        sw, sfa, sfe, orte, pg, uk, re, sfo, st, smo, abg, hsa, san, ffst
+    }:{
+        sw?: string,
+        sfa?: number,
+        sfe?: string,
+        orte?:string,
+        pg?:number,
+        uk?: string,
+        re?: string,
+        sfo?: number,
+        st?: number,
+        smo?: number,
+        abg?: number,
+        hsa?:number,
+        san?:number,
+        ffst?: number
+        }={}
+    ){
+         var sAngebotListe: sAngebotObjekt[]= [];
+         var daten:any=await this.sapi.fetchData(
+            sw,
+            sfa,
+            sfe,
+            orte,
+            pg,
+            uk,
+            re,
+            sfo,
+            st,
+            smo,
+            abg,
+            hsa,
+            san,
+            ffst
+         )
+         // status check
+
+         for(var item of daten.data.items){
+            // argumente die weiterg gegeben werden sollen
+            let logo:string = item.studienangebot?.studienanbiter?.logo?.url;
+            let beginn:string = "Platzhalter!"; // Platzhalter!!!
+            let ende:string = "platzhalter!"; // Platzhalter!!!
+            let studienbeginn:string = item.studienangebot?.studibeginn;
+            let spaeterer:number = 1; // Platzhalter!!    
+            // fristen ergänzen
+            let vorlesungen: string = ""; // Platzhalter
+            let studientyp:string = item.studienangebot?.studientyp?.label;
+            let studienform:string = item.studienangebot.studienform.label;
+            let hochschulart:string = item.studienangebot?.label;
+            let abschlussgradIntern: string = "Platzhalter"; /* !!! */ 
+            let lehramtsbefaehigung: string = "Platzhalter"; //!!
+            let unterrichtssprache: string = "Platzhalter"; //!!
+            let internationalerDoppelabschluss: string = "Platzhalter"; //!!
+            let studienfaecher: string[] = item.studienangebot?.studienfaecher;
+            let zulassungsmodus: string = "Platzhalter";
+             // Studienanbieter
+            let name:string = item.studienangebot?.studienanbieter?.namme;
+            let strasse:string = item.studienangebot?.studienort?.strasse; // mit hausnummer?
+            let plz: string = item.studienangebot?.studienort?.plz;
+            let ort:string = item.studienangebot?.studienort?.ort;
+            // kontakt
+            let telefon:string = "Platzhalter";///!!!
+            let internet:string = "Plstzhalter"//!!
+            let email:string = "Plazhalter"//!!
+            //Veröffentlichungsinfos
+            let veranstaltungsID:string = "Platzhaler"//!!
+            let aktualisierungsdatum:string = "Platzhaler"//!!
+            let studierenOhneABi: string = "Platzhalter"//!!
+            let Koordinaten:number = 1// ist da, mach ich noch
+            let sA = new sAngebotObjekt(
+                logo, beginn, ende, studienbeginn, spaeterer, vorlesungen, studientyp, studienform, hochschulart, abschlussgradIntern, lehramtsbefaehigung, unterrichtssprache, internationalerDoppelabschluss,
+                studienfaecher, zulassungsmodus, name, strasse, plz, ort, telefon, internet, email, veranstaltungsID, aktualisierungsdatum, studierenOhneABi, Koordinaten
+            );
+            sAngebotListe.push(sA)
+         }
+        const AR: AngebotResponse = new AngebotResponse(sAngebotListe, daten.maxErgebnisse,"kein status");
+        return AR;
+
+
     }
+
     public async getAngebote({
         re, page, sty, ids, orte, size, uk, bart, ityp, bt, ban,bg}:{
         re?:string,// string
