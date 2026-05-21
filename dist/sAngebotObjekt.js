@@ -1,75 +1,87 @@
 // Objekt, das ein Angebot darstellt
-export class AngebotObjekt {
+export class sAngebotObjekt {
     // instanzierung von Variablen
     logo;
-    beginn;
-    ende;
     studienbeginn;
-    spaeterer;
     // fristen ergänzen
-    vorlesungen;
     studientyp;
     studienform;
-    schulart;
-    abschlussgradIntern;
-    lehramtsbefaehigung;
-    unterrichtssprache;
-    internationalerDoppelabschluss;
-    studienfach;
-    zulassungsmodus;
+    hochschulart;
+    studienfaecher;
     // Studienanbieter
     name;
     strasse; // mit hausnummer?
     plz;
+    region;
     ort;
     // kontakt
-    telefon;
-    internet;
-    email;
     //Veröffentlichungsinfos
-    veranstaltungsID;
-    aktualisierungsdatum;
-    studierenOhneABi;
-    Koordinaten; // aussplitten in laengen und breitengrad
+    leangengrad;
+    breitengrad;
     constructor(
     // argumente die weiterg gegeben werden sollen
-    logo, beginn, ende, studienbeginn, spaeterer, 
+    logo, studienbeginn, 
     // fristen ergänzen
-    vorlesungen, studientyp, studienform, schulart, abschlussgradIntern, lehramtsbefaehigung, unterrichtssprache, internationalerDoppelabschluss, studienfach, zulassungsmodus, 
+    studientyp, studienform, hochschulart, studienfaecher, 
     // Studienanbieter
     name, strasse, // mit hausnummer?
-    plz, ort, 
-    // kontakt
-    telefon, internet, email, 
+    plz, region, ort, 
     //Veröffentlichungsinfos
-    veranstaltungsID, aktualisierungsdatum, studierenOhneABi, Koordinaten) {
+    laengengrad, breitengrad) {
         // this.irgenwas = irgendwas
         this.logo = logo;
-        this.beginn = beginn;
-        this.ende = ende;
         this.studienbeginn = studienbeginn;
-        this.spaeterer = spaeterer;
-        this.vorlesungen = vorlesungen;
         this.studientyp = studientyp;
         this.studienform = studienform;
-        this.schulart = schulart;
-        this.abschlussgradIntern = abschlussgradIntern;
-        this.lehramtsbefaehigung = lehramtsbefaehigung;
-        this.unterrichtssprache = unterrichtssprache;
-        this.internationalerDoppelabschluss = internationalerDoppelabschluss;
-        this.studienfach = studienfach;
-        this.zulassungsmodus = zulassungsmodus;
+        this.hochschulart = hochschulart;
+        this.studienfaecher = studienfaecher;
         this.name = name;
         this.strasse = strasse;
         this.plz = plz;
+        this.region = region;
         this.ort = ort;
-        this.telefon = telefon;
-        this.internet = internet;
-        this.email = email;
-        this.veranstaltungsID = veranstaltungsID;
-        this.aktualisierungsdatum = aktualisierungsdatum;
-        this.studierenOhneABi = studierenOhneABi;
-        this.Koordinaten = Koordinaten;
+        this.leangengrad = laengengrad;
+        this.breitengrad = breitengrad;
+    }
+    // Get-Methoden
+    getLogo() {
+        return this.logo;
+    }
+    getStudienbeginn() {
+        return this.studienbeginn;
+    }
+    getStudientyp() {
+        return this.studientyp;
+    }
+    getStudienform() {
+        return this.studienform;
+    }
+    getHochschulart() {
+        return this.hochschulart;
+    }
+    getStudienfach() {
+        return this.studienfaecher;
+    }
+    getName() {
+        return this.name;
+    }
+    getStrasse() {
+        return this.strasse;
+    }
+    getPlz() {
+        return this.plz;
+    }
+    getRegion() {
+        return this.region;
+    }
+    getOrt() {
+        return this.ort;
+    }
+    getLaengengrad() {
+        return this.leangengrad;
+    }
+    getBreitengrad() {
+        return this.breitengrad;
     }
 }
 //# sourceMappingURL=sAngebotObjekt.js.map

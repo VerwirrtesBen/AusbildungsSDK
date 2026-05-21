@@ -3,6 +3,7 @@ import {AngebotObjekt} from "./AngebotObjekt.js"
 import {ClientService} from "./ClientService.js"
 import {sClientService} from "./sClientService.js"
 import {AngebotResponse} from "./AngebotResponse.js"
+import {sAngebotResponse} from "./sAngebotResponse.js"
 import {sAngebotObjekt} from "./sAngebotObjekt.js"
 
 
@@ -53,44 +54,37 @@ export class AngeboteProvider{
 
          for(var item of daten.data.items){
             // argumente die weiterg gegeben werden sollen
-            let logo:string = item.studienangebot?.studienanbiter?.logo?.url;
-            let beginn:string = "Platzhalter!"; // Platzhalter!!!
-            let ende:string = "platzhalter!"; // Platzhalter!!!
-            let studienbeginn:string = item.studienangebot?.studibeginn;
-            let spaeterer:number = 1; // Platzhalter!!    
+            let logo:string = item.studienangebot?.studienanbieter?.logo?.url;
+            let studienbeginn:string = item.studienangebot?.studiBeginn; 
             // fristen ergänzen
-            let vorlesungen: string = ""; // Platzhalter
             let studientyp:string = item.studienangebot?.studientyp?.label;
             let studienform:string = item.studienangebot.studienform.label;
-            let hochschulart:string = item.studienangebot?.label;
-            let abschlussgradIntern: string = "Platzhalter"; /* !!! */ 
-            let lehramtsbefaehigung: string = "Platzhalter"; //!!
-            let unterrichtssprache: string = "Platzhalter"; //!!
-            let internationalerDoppelabschluss: string = "Platzhalter"; //!!
+            let hochschulart:string = item.studienangebot?.hochschulart?.label;
             let studienfaecher: string[] = item.studienangebot?.studienfaecher;
-            let zulassungsmodus: string = "Platzhalter";
              // Studienanbieter
-            let name:string = item.studienangebot?.studienanbieter?.namme;
-            let strasse:string = item.studienangebot?.studienort?.strasse; // mit hausnummer?
-            let plz: string = item.studienangebot?.studienort?.plz;
+            let name:string = item.studienangebot?.studienanbieter?.name;
+            let strasse:string = item.studienangebot?.studienort?.strasse; 
+            let plz: string = item.studienangebot?.studienort?.postleitzahl;
+            let region: string = item.studienangebot?.region?.label;
             let ort:string = item.studienangebot?.studienort?.ort;
-            // kontakt
-            let telefon:string = "Platzhalter";///!!!
-            let internet:string = "Plstzhalter"//!!
-            let email:string = "Plazhalter"//!!
-            //Veröffentlichungsinfos
-            let veranstaltungsID:string = "Platzhaler"//!!
-            let aktualisierungsdatum:string = "Platzhaler"//!!
-            let studierenOhneABi: string = "Platzhalter"//!!
-            let Koordinaten:number = 1// ist da, mach ich noch
+            let laengengrad:number = item.studienangebot?.studienort?.location.lat;
+            let breitengrad:number = item.studienangebot?.studienort?.location.lon;
             let sA = new sAngebotObjekt(
-                logo, beginn, ende, studienbeginn, spaeterer, vorlesungen, studientyp, studienform, hochschulart, abschlussgradIntern, lehramtsbefaehigung, unterrichtssprache, internationalerDoppelabschluss,
-                studienfaecher, zulassungsmodus, name, strasse, plz, ort, telefon, internet, email, veranstaltungsID, aktualisierungsdatum, studierenOhneABi, Koordinaten
+                logo,studienbeginn,studientyp,studienform,hochschulart,studienfaecher
+                ,name, strasse, plz, region, ort, laengengrad, breitengrad
             );
-            sAngebotListe.push(sA)
+            sAngebotListe.push(sA)  
          }
-        const AR: AngebotResponse = new AngebotResponse(sAngebotListe, daten.maxErgebnisse,"kein status");
-        return AR;
+
+        let status = daten.status;
+        let page:{size?:number, totalElements?:number, totalPages?:number, number?:number} = {
+            size:20,
+            totalElements:daten.data.maxErgebnisse,
+            totalPages: Math.ceil(daten.data.maxErgebnisse / 20),
+            number:pg
+        }
+        const sAR: sAngebotResponse = new sAngebotResponse(sAngebotListe,page,status);
+        return sAR;
 
 
     }

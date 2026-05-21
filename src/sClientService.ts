@@ -27,6 +27,7 @@ export class sClientService{
         //Accept: "application/json",
         "X-API-Key": this.X_API_Key
     },
+    
     params: {
         sw:sw,
         sfa:sfa,

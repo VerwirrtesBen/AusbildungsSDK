@@ -1,7 +1,7 @@
 import axios from "axios";
 export class sClientService {
     // Locale Varivalen
-    Link = "https://rest.arbeitsagentur.de/infosysbub/absuche/pc/v1/ausbildungsangebot";
+    Link = "https://rest.arbeitsagentur.de/infosysbub/studisu/pc/v1/studienangebote";
     X_API_Key = "infosysbub-studisu";
     // Haupt Methode
     async fetchData(// parameter 
@@ -12,11 +12,11 @@ export class sClientService {
                 "X-API-Key": this.X_API_Key
             },
             params: {
-                sw: "IT-Security-Manager",
+                sw: sw,
                 sfa: sfa,
                 sfe: sfe,
                 orte: orte,
-                pg: 1,
+                pg: pg,
                 uk: uk,
                 re: re,
                 sfo: sfo,

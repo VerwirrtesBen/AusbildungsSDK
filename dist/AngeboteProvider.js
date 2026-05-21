@@ -3,6 +3,8 @@ import { AngebotObjekt } from "./AngebotObjekt.js";
 import { ClientService } from "./ClientService.js";
 import { sClientService } from "./sClientService.js";
 import { AngebotResponse } from "./AngebotResponse.js";
+import { sAngebotResponse } from "./sAngebotResponse.js";
+import { sAngebotObjekt } from "./sAngebotObjekt.js";
 export class AngeboteProvider {
     api;
     sapi;
@@ -10,29 +12,40 @@ export class AngeboteProvider {
         this.api = new ClientService();
         this.sapi = new sClientService();
     }
-    /*public async getsAngebote({
-        sw, sfa, sfe, orte, pg, uk, re, sfo, st, smo, abg, hsa, san, ffst
-    }:{
-        sw?: string,
-        sfa?: number,
-        sfe?: string,
-        orte?:string,
-        pg?:number,
-        uk?: string,
-        re?: string,
-        sfo?: number,
-        st: number,
-        smo: number,
-        abg: number,
-        hsa:number,
-        san:number,
-        ffst: number}
-    ){
-        var sAngebotsliste:
+    async getsAngebote({ sw, sfa, sfe, orte, pg, uk, re, sfo, st, smo, abg, hsa, san, ffst } = {}) {
+        var sAngebotListe = [];
+        var daten = await this.sapi.fetchData(sw, sfa, sfe, orte, pg, uk, re, sfo, st, smo, abg, hsa, san, ffst);
+        // status check
+        for (var item of daten.data.items) {
+            // argumente die weiterg gegeben werden sollen
+            let logo = item.studienangebot?.studienanbieter?.logo?.url;
+            let studienbeginn = item.studienangebot?.studiBeginn;
+            // fristen ergänzen
+            let studientyp = item.studienangebot?.studientyp?.label;
+            let studienform = item.studienangebot.studienform.label;
+            let hochschulart = item.studienangebot?.hochschulart?.label;
+            let studienfaecher = item.studienangebot?.studienfaecher;
+            // Studienanbieter
+            let name = item.studienangebot?.studienanbieter?.name;
+            let strasse = item.studienangebot?.studienort?.strasse;
+            let plz = item.studienangebot?.studienort?.postleitzahl;
+            let region = item.studienangebot?.region?.label;
+            let ort = item.studienangebot?.studienort?.ort;
+            let laengengrad = item.studienangebot?.studienort?.location.lat;
+            let breitengrad = item.studienangebot?.studienort?.location.lon;
+            let sA = new sAngebotObjekt(logo, studienbeginn, studientyp, studienform, hochschulart, studienfaecher, name, strasse, plz, region, ort, laengengrad, breitengrad);
+            sAngebotListe.push(sA);
+        }
+        let status = daten.status;
+        let page = {
+            size: 20,
+            totalElements: daten.maxErgebnisse,
+            totalPages: Math.ceil(daten.maxErgebnisse / 20),
+            number: pg
+        };
+        const sAR = new sAngebotResponse(sAngebotListe, page, status);
+        return sAR;
     }
-
-    )
-    */
     async getAngebote({ re, page, sty, ids, orte, size, uk, bart, ityp, bt, ban, bg } = {}) {
         var AngebotListe = [];
         var daten = await this.api.fetchData(re, // string
