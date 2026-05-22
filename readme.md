@@ -1,4 +1,4 @@
-# Job SDK
+# Ausbildungs SDK
 
 Dies ist eine Typescript SDK zur einfachen Nutzung der Folgen APIs von Andreas Fischer und der Agentur für Arbeit. Diese nutzt Axios.
 
