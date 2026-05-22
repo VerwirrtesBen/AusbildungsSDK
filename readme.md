@@ -41,3 +41,36 @@ Die Informationen, die über die APIs abgefragt werden können sich mit denen, a
 
 Das die Methode getAzubiAngebote() &ndash; bzw. getStudiAngebot() des Objektes AngeboteProvider gibt ein Objekt zurück. Dieses enthält ein Page (getPage()) Objekt mit Meta informationen, einen Status (getStatus()) und Liste mit Angebot-Objekten (getAngebotListe).
 Diese Angebot Objekte wiederum enthalten ausgewählte Informationen aus der API.
+
+## Weitere Informationen
+
+### Weitere API
+
+Weiterhin gibt es eine Job API **, diese ist jedoch nicht in der SDK implementiert.**
+
+<https://rest.arbeitsagentur.de/jobboerse/jobsuche-service/pc/v6/jobs>
+
+Dafür können zum Beispiel folgende Werte für den Parameter "was" weitergegeben werden.
+
+- Bundesfreiwilligendienst
+- FSJ
+- Freiwilliges%20Sociales%20Jahr
+
+Dokumentation:
+
+<https://jobsuche.api.bund.dev/>
+<https://github.com/bundesAPI/jobsuche-api>
+
+## Info Quellen ohne API
+
+Platform von **Aktion Mensch**, zum Finden von Ehrenähmtern und Möglichkeiten zu freiwilligem Engagement:
+
+<https://www.aktion-mensch.de/ehrenamt/engagement-plattform>
+
+Ähnliche suche für freiwillige Angebote in Deutschland, Östereich und der Schweiz:
+
+<https://www.vostel.de>
+
+Auf einer Website von Verein für sociales Leben ev. kann man Angebote finden oder sich selbst zur Bewerbung stellen:
+
+<https://www.bundes-freiwilligendienst.de/>

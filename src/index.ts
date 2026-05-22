@@ -1,7 +1,7 @@
 import {AngeboteProvider} from "./AngeboteProvider.js"
 import {azubiAngebotResponse } from "./azubiAngebotResponse.js";
 import {studiAngebotResponse} from "./studiAngebotResponse.js"
-
+    
 // Dieser code Dient als Beispiel zur verwendung der SDK
 
 const Provider = new AngeboteProvider();
