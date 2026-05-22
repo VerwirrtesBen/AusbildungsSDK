@@ -35,7 +35,7 @@ Weitere Dokumentation:
 
 ## Begrenzung
 
-Die Informationen, die über die APIs abgefragt werden können sich nicht deckungsgleich mit dennen, auf der Website der Bundesagentur für Arbeit.
+Die Informationen, die über die APIs abgefragt werden können sich mit denen, auf der Website der Bundesagentur für Arbeit, unterscheiden.
 
 ## Nutzung der SDk
 
