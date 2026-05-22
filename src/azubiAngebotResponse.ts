@@ -1,10 +1,10 @@
-import {AngebotObjekt} from "./AngebotObjekt.js"
-export class AngebotResponse{
-    protected AngebotListe: AngebotObjekt[];
+import {azubiAngebotObjekt} from "./azubiAngebotObjekt.js"
+export class azubiAngebotResponse{
+    protected AngebotListe: azubiAngebotObjekt[];
     protected PageInfo:any;
     protected Status:any;
 
-    constructor(Liste:AngebotObjekt[], PageInfo:any, Status:any){
+    constructor(Liste:azubiAngebotObjekt[], PageInfo:any, Status:any){
         this.AngebotListe = Liste;
         this.PageInfo = PageInfo;
         this.Status = Status;

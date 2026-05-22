@@ -1,10 +1,10 @@
-import {sAngebotObjekt} from "./sAngebotObjekt.js"
+import {studiAngebotObjekt} from "./studiAngebotObjekt.js"
 export class sAngebotResponse{
-    protected AngebotListe: sAngebotObjekt[];
+    protected AngebotListe: studiAngebotObjekt[];
     protected PageInfo:{size?:number, totalElements?:number, totalPages?:number, number?:number};
     protected status: number;
 
-    constructor(Liste:sAngebotObjekt[],pageInfo:{size?:number, totalElements?:number, totalPages?:number, number?:number}, status:number){
+    constructor(Liste:studiAngebotObjekt[],pageInfo:{size?:number, totalElements?:number, totalPages?:number, number?:number}, status:number){
         this.AngebotListe = Liste;
         this.PageInfo = pageInfo;
         this.status = status; 

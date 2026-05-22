@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export class ClientService{
+export class azubiClientService{
     // Locale Varivalen
     Link: string ="https://rest.arbeitsagentur.de/infosysbub/absuche/pc/v1/ausbildungsangebot";
     X_API_Key = "infosysbub-absuche"

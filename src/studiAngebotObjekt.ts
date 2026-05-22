@@ -1,5 +1,5 @@
 // Objekt, das ein Angebot darstellt
-export class sAngebotObjekt{
+export class studiAngebotObjekt{
     // instanzierung von Variablen
     private logo:string;
     private studienbeginn:string;

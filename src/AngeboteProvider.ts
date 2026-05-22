@@ -1,20 +1,20 @@
 // test code
-import {AngebotObjekt} from "./AngebotObjekt.js"
-import {ClientService} from "./ClientService.js"
-import {sClientService} from "./sClientService.js"
-import {AngebotResponse} from "./AngebotResponse.js"
-import {sAngebotResponse} from "./sAngebotResponse.js"
-import {sAngebotObjekt} from "./sAngebotObjekt.js"
+import {azubiAngebotObjekt} from "./azubiAngebotObjekt.js"
+import {azubiClientService} from "./azubiClientService.js"
+import {studiClientService} from "./studiClientService.js"
+import {azubiAngebotResponse} from "./azubiAngebotResponse.js"
+import {sAngebotResponse} from "./studiAngebotResponse.js"
+import {studiAngebotObjekt} from "./studiAngebotObjekt.js"
 
 
 
 export class AngeboteProvider{
-    protected api:ClientService;
-    protected sapi:sClientService;
+    protected api:azubiClientService;
+    protected sapi:studiClientService;
     constructor(){
-        this.api = new ClientService();
-        this.sapi = new sClientService();
-    }public async getsAngebote({
+        this.api = new azubiClientService();
+        this.sapi = new studiClientService();
+    }public async getStudiAngebote({
         sw, sfa, sfe, orte, pg, uk, re, sfo, st, smo, abg, hsa, san, ffst
     }:{
         sw?: string,
@@ -33,7 +33,7 @@ export class AngeboteProvider{
         ffst?: number
         }={}
     ){
-         var sAngebotListe: sAngebotObjekt[]= [];
+         var sAngebotListe: studiAngebotObjekt[]= [];
          var daten:any=await this.sapi.fetchData(
             sw,
             sfa,
@@ -69,7 +69,7 @@ export class AngeboteProvider{
             let ort:string = item.studienangebot?.studienort?.ort;
             let laengengrad:number = item.studienangebot?.studienort?.location.lat;
             let breitengrad:number = item.studienangebot?.studienort?.location.lon;
-            let sA = new sAngebotObjekt(
+            let sA = new studiAngebotObjekt(
                 logo,studienbeginn,studientyp,studienform,hochschulart,studienfaecher
                 ,name, strasse, plz, region, ort, laengengrad, breitengrad
             );
@@ -89,7 +89,7 @@ export class AngeboteProvider{
 
     }
 
-    public async getAngebote({
+    public async getAzubiAngebote({
         re, page, sty, ids, orte, size, uk, bart, ityp, bt, ban,bg}:{
         re?:string,// string
         page?: number,
@@ -104,7 +104,7 @@ export class AngeboteProvider{
         ban?:number,
         bg?: boolean}={}
     ){
-        var AngebotListe: AngebotObjekt[]= [];
+        var AngebotListe: azubiAngebotObjekt[]= [];
         var daten:any =  await this.api.fetchData(
             re,// string
             page,
@@ -121,7 +121,7 @@ export class AngeboteProvider{
         );
         // 401
         if (daten.status != 200) {
-            const AR: AngebotResponse = new AngebotResponse([], daten.data.page, daten.status); 
+            const AR: azubiAngebotResponse = new azubiAngebotResponse([], daten.data.page, daten.status); 
             return AR;
         }
 
@@ -164,7 +164,7 @@ export class AngeboteProvider{
             let HinweiseZurAdresse: string = Termin.adresse?.hinweise;
             let logo: string | null = Termin.angebot?.bildungsanbieter?.logo?.url ?? null;
             // erstellung des Angebot objektes
-            let A = new AngebotObjekt(
+            let A = new azubiAngebotObjekt(
                 id,
                 ausbildungsinhalte,
                 link,
@@ -204,7 +204,7 @@ export class AngeboteProvider{
             AngebotListe.push(A);
  
         }
-        const AR: AngebotResponse = new AngebotResponse(AngebotListe, daten.data.page,daten.status);
+        const AR: azubiAngebotResponse = new azubiAngebotResponse(AngebotListe, daten.data.page,daten.status);
         return AR;
     }
 

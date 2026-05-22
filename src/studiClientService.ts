@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export class sClientService{
+export class studiClientService{
     // Locale Varivalen
     Link: string ="https://rest.arbeitsagentur.de/infosysbub/studisu/pc/v1/studienangebote";
     X_API_Key = "infosysbub-studisu"

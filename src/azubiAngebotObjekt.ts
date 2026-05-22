@@ -1,5 +1,5 @@
 // Objekt, das ein Angebot darstellt
-export class AngebotObjekt{
+export class azubiAngebotObjekt{
 
     private id: string;
     private Ausbildungsinhalte: string;
