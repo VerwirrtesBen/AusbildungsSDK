@@ -3,7 +3,7 @@ import {azubiAngebotObjekt} from "./azubiAngebotObjekt.js"
 import {azubiClientService} from "./azubiClientService.js"
 import {studiClientService} from "./studiClientService.js"
 import {azubiAngebotResponse} from "./azubiAngebotResponse.js"
-import {sAngebotResponse} from "./studiAngebotResponse.js"
+import {studiAngebotResponse} from "./studiAngebotResponse.js"
 import {studiAngebotObjekt} from "./studiAngebotObjekt.js"
 
 
@@ -51,7 +51,12 @@ export class AngeboteProvider{
             ffst
          )
          // status check
+         if (daten.status != 200) {
+            const AR: studiAngebotResponse = new studiAngebotResponse([], daten.data.page, daten.status); 
+            return AR;
+        }
 
+         
          for(var item of daten.data.items){
             // argumente die weiterg gegeben werden sollen
             let logo:string = item.studienangebot?.studienanbieter?.logo?.url;
@@ -83,7 +88,7 @@ export class AngeboteProvider{
             totalPages: Math.ceil(daten.data.maxErgebnisse / 20),
             number:pg
         }
-        const sAR: sAngebotResponse = new sAngebotResponse(sAngebotListe,page,status);
+        const sAR: studiAngebotResponse = new studiAngebotResponse(sAngebotListe,page,status);
         return sAR;
 
 
