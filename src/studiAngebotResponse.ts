@@ -1,5 +1,5 @@
 import {studiAngebotObjekt} from "./studiAngebotObjekt.js"
-export class sAngebotResponse{
+export class studiAngebotResponse{
     protected AngebotListe: studiAngebotObjekt[];
     protected PageInfo:{size?:number, totalElements?:number, totalPages?:number, number?:number};
     protected status: number;

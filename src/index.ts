@@ -1,12 +1,12 @@
 import {AngeboteProvider} from "./AngeboteProvider.js"
 import {azubiAngebotResponse } from "./azubiAngebotResponse.js";
-import {sAngebotResponse} from "./studiAngebotResponse.js"
+import {studiAngebotResponse} from "./studiAngebotResponse.js"
 
 
 var A:AngeboteProvider = new AngeboteProvider;
 
 async function  printSite(seite:number):Promise<void>{
-    const angebotResponse: sAngebotResponse = await A.getStudiAngebote({
+    const angebotResponse: studiAngebotResponse = await A.getStudiAngebote({
         pg:seite,
         sfe:"93574;93575;93581;93583;93584;93592;93593;93598;93611;93621;93625;93627;93638;93648;93649;93650;93651;93659;93661;93677;93685;93690;93694;93696;93698;93699;93701;93705;93713;93718;93719;93720;93724;93733;93736;93739;93751;93757;93767;93772;93774;93795;93796;93797;93799;93802;93804;93813"
     });
